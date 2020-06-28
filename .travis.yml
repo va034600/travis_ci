@@ -30,7 +30,11 @@ after_success:
   - docker build -t $APP_NAME:latest -f docker/Dockerfile .
   - docker images
 
-  # Docker Hub
+  # Docker Hub public
+  - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/${APP_NAME}_pub:${TRAVIS_TAG}
+  - docker push $DOCKER_HUB_ACCOUNT/${APP_NAME}_pub:${TRAVIS_TAG}
+
+  # Docker Hub private
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
   - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
