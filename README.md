@@ -33,6 +33,10 @@ $ docker build -t va034600/sample_travis_ci:1 -f docker/Dockerfile .
 $ docker push va034600/sample_travis_ci:1
 ```
 
+```
+$ docker login
+```
+
 - Using Docker Compose  
 https://docs.travis-ci.com/user/docker/#using-docker-compose
 - Build Stages: Sharing a Docker image  

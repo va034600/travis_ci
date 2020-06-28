@@ -1,11 +1,7 @@
 version: '3'
 services:
   api:
-    build:
-      context: ../
-      dockerfile: ./docker/Dockerfile
-    image: va034600/sample_travis_ci:1
-
+    image: va034600/sample_travis_ci:${TAG}
     working_dir: /usr/src/app/travis_ci
     command: python manage.py runserver 0.0.0.0:8000
     ports:
