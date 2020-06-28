@@ -23,5 +23,5 @@ after_success:
   - docker --version
   - docker build -t $APP_NAME:1 -f docker/Dockerfile .
   - docker images
-  - docker tag $APP_NAME:1 $DOCKER_ACCOUNT/$APP_NAME:1
+  - docker tag $APP_NAME:1 $DOCKER_HUB_ACCOUNT/$APP_NAME:1
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:1
