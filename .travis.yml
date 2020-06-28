@@ -27,3 +27,9 @@ after_success:
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
   - docker tag $APP_NAME:1 $DOCKER_HUB_ACCOUNT/$APP_NAME:1
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:1
+
+branches:
+  only:
+#  - master
+  - develop
+  - "/^v?[0-9\\.]+/"
