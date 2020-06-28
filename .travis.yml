@@ -1,0 +1,21 @@
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION: 1.26.0
+  - APP_NAME=sample/sample_travis_ci
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+after_success:
+  - docker --version
+
+#  - pip install --user awscli # install aws cli w/o sudo
+#  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
+#  - eval $(aws ecr get-login --no-include-email --region us-east-1)
+  - docker build -t $APP_NAME:1 -f docker/Dockerfile .
+#  - docker tag $APP_NAME:$TRAVIS_BUILD_ID $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
