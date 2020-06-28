@@ -20,13 +20,13 @@ script:
 
 after_success:
   - docker --version
-  - docker build -t $APP_NAME:1 -f docker/Dockerfile .
+  - docker build -t $APP_NAME:latest -f docker/Dockerfile .
   - docker images
 
   # Docker Hub
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
-  - docker tag $APP_NAME:1 $DOCKER_HUB_ACCOUNT/$APP_NAME:1
-  - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:1
+  - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
+  - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
 
 branches:
   only:
