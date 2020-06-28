@@ -7,7 +7,7 @@ env:
   global:
     - DOCKER_COMPOSE_VERSION=1.8.0
     - APP_NAME=sample_travis_ci
-    - DOCKER_ACCOUNT=va034600
+    - DOCKER_HUB_ACCOUNT=va034600
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -19,8 +19,9 @@ script:
   - echo "script"
 
 after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
   - docker --version
   - docker build -t $APP_NAME:1 -f docker/Dockerfile .
   - docker images
   - docker tag $APP_NAME:1 $DOCKER_ACCOUNT/$APP_NAME:1
-  - docker push $DOCKER_ACCOUNT/$APP_NAME:1
+  - docker push DOCKER_HUB_ACCOUNT/$APP_NAME:1
