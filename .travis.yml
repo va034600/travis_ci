@@ -4,8 +4,9 @@ services:
   - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.8.0
-  - APP_NAME=sample/sample_travis_ci
+  global:
+    - DOCKER_COMPOSE_VERSION=1.8.0
+    - APP_NAME=sample/sample_travis_ci
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
