@@ -8,12 +8,18 @@ env:
     - DOCKER_COMPOSE_VERSION=1.8.0
     - APP_NAME=sample_travis_ci
     - DOCKER_HUB_ACCOUNT=va034600
+    # ECR
+    - PATH=$HOME/.local/bin:$PATH
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+
+  - # ECR
+  - pip install -U pip
+  - pip install awscli
 
 script:
   - echo "script"
@@ -29,11 +35,9 @@ after_success:
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
 
   # ECR
-  - pip install awscli
-  - export PATH=$PATH:$HOME/.local/bin
-  - $(aws ecr get-login --region ap-northeast-1)
-  - docker tag $APP_NAME:latest $ECR_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
-  - docker push $ECR_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
+  - eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
+  - docker tag $APP_NAME:latest $AWS_ECR_ACCOUNT.dkr.ecr.ap-northeast-1.amazonaws.com/$APP_NAME:${TRAVIS_TAG}
+  - docker push $AWS_ECR_ACCOUNT.dkr.ecr.ap-northeast-1.amazonaws.com/$APP_NAME:${TRAVIS_TAG}
 
 branches:
   only:
