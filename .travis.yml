@@ -28,6 +28,13 @@ after_success:
   - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
 
+  # ECR
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region ap-northeast-1)
+  - docker tag $APP_NAME:latest $ECR_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
+  - docker push $ECR_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
+
 branches:
   only:
 #  - master
