@@ -4,6 +4,7 @@
 - pyenv
 - pipenv
 
+# list
 ```
 $ pipenv --python 3.6
 $ pipenv install django==2.2.3
@@ -31,6 +32,13 @@ $ docker build -t va034600/sample_travis_ci:1 -f docker/Dockerfile .
 # docker push
 ```
 $ docker push va034600/sample_travis_ci:1
+```
+
+# docker-compose up
+```
+$ cd docker
+$ cp .env.template .env
+$ docker-compose up -d
 ```
 
 ```
