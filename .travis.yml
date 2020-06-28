@@ -19,7 +19,7 @@ script:
   - echo "script"
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
   - docker --version
   - docker build -t $APP_NAME:1 -f docker/Dockerfile .
   - docker images
