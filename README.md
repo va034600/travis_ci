@@ -23,6 +23,12 @@ $ docker-compose up
 http://127.0.0.1:8000/
 ```
 
+# docker build
 ```
-$ docker build -t sample/sample_travis_ci:1 -f docker/Dockerfile .
+$ docker build -t va034600/sample_travis_ci:1 -f docker/Dockerfile .
+```
+
+# docker push
+```
+$ docker push va034600/sample_travis_ci:1
 ```
