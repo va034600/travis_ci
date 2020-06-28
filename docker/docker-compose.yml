@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: va034600/sample_travis_ci:${TAG}
+    image: va034600/sample_travis_ci_pub:${TAG}
     working_dir: /usr/src/app/travis_ci
     command: python manage.py runserver 0.0.0.0:8000
     ports:
