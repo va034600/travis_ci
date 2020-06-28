@@ -10,6 +10,7 @@ env:
     - DOCKER_HUB_ACCOUNT=va034600
     # ECR
     - PATH=$HOME/.local/bin:$PATH
+    - AWS_DEFAULT_REGION=ap-northeast-1
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -35,8 +36,8 @@ after_success:
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
 
   # ECR
-  - eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
-  - docker tag $APP_NAME:latest $AWS_ECR_ACCOUNT.dkr.ecr.ap-northeast-1.amazonaws.com/$APP_NAME:${TRAVIS_TAG}
+  - eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+  - docker tag $APP_NAME:latest $AWS_ECR_ACCOUNT.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_NAME:${TRAVIS_TAG}
   - docker push $AWS_ECR_ACCOUNT.dkr.ecr.ap-northeast-1.amazonaws.com/$APP_NAME:${TRAVIS_TAG}
 
 branches:
