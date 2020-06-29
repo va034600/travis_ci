@@ -5,7 +5,7 @@ services:
 
 env:
   global:
-    - DOCKER_COMPOSE_VERSION=1.8.0
+    - DOCKER_COMPOSE_VERSION=1.26.0
     - APP_NAME=sample_travis_ci
     - DOCKER_HUB_ACCOUNT=va034600
     # ECR
