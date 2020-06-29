@@ -5,20 +5,23 @@ services:
 
 env:
   global:
-    - DOCKER_COMPOSE_VERSION=1.26.0
     - APP_NAME=sample_travis_ci
+    # docker-compose
+#    - DOCKER_COMPOSE_VERSION=1.26.0
+    # awscli
+    - PATH=$HOME/.local/bin:$PATH
+    # Docker Hub
     - DOCKER_HUB_ACCOUNT=va034600
     # ECR
-    - PATH=$HOME/.local/bin:$PATH
     - AWS_DEFAULT_REGION=ap-northeast-1
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+#  - sudo rm /usr/local/bin/docker-compose
+#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#  - chmod +x docker-compose
+#  - sudo mv docker-compose /usr/local/bin
 
-  - # ECR
+  # ECR
   - pip install -U pip
   - pip install awscli
 
@@ -32,10 +35,10 @@ after_success:
 
   # Docker Hub
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ACCOUNT" --password-stdin
-  # public
+  # Docker Hub public
   - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/${APP_NAME}_pub:${TRAVIS_TAG}
   - docker push $DOCKER_HUB_ACCOUNT/${APP_NAME}_pub:${TRAVIS_TAG}
-  # private
+  # Docker Hub private
   - docker tag $APP_NAME:latest $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
   - docker push $DOCKER_HUB_ACCOUNT/$APP_NAME:${TRAVIS_TAG}
 
