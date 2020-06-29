@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/va034600/travis_ci.svg?branch=master)](https://travis-ci.org/va034600/travis_ci)
+
 # travis_ci
 
 # setup
