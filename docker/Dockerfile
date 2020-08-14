@@ -11,4 +11,5 @@ RUN pipenv install --system
 
 COPY . /usr/src/app/
 
-CMD tail -f /dev/null
+#CMD tail -f /dev/null
+CMD python manage.py runserver 0.0.0.0:8000
