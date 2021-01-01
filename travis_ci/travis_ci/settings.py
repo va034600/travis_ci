@@ -120,3 +120,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'production': {
+            'format': '%(asctime)s [%(levelname)s] %(process)d %(thread)d '
+                      '%(pathname)s:%(lineno)d %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'production',
+        }
+    },
+    'loggers': {
+        'command': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    }
+}
