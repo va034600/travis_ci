@@ -5,6 +5,7 @@ logger = logging.getLogger('command')
 
 
 def v1(request):
+    aaa = 0
     if "aaa" in request.GET:
         # query_paramが指定されている場合の処理
         try:
